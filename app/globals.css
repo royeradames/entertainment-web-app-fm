@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-/* One dark theme. Contrast against --bg and --surface: --text and --muted pass 4.5:1, --line and --accent pass 3:1 (tests check every pair). */
+/* Two themes that follow the reader's system: dark by default, light when the system asks for light.
+   Contrast against --bg, --surface and --surface-hover: --text, --muted and --accent pass 4.5:1, --line passes 3:1
+   (tests check every pair in both themes). Text on the trending scrim keeps light --on-scrim colours in both themes. */
 :root {
   color-scheme: dark;
   --bg: #0e1116;
@@ -14,6 +16,24 @@
   --accent: #ffb547;
   --accent-hover: #ffd08a;
   --scrim: rgb(14 17 22 / 0.92);
+  --on-scrim: #f3f1ec;
+  --on-scrim-line: #a9b1c2;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --bg: #f5f3ee;
+    --surface: #ffffff;
+    --surface-hover: #ebe7de;
+    --edge: #d6d1c5;
+    --text: #16181d;
+    --muted: #4b5260;
+    --line: #767d8c;
+    --line-hover: #3f4552;
+    --accent: #8a4b00;
+    --accent-hover: #6a3900;
+  }
 }
 
 * { box-sizing: border-box; }
@@ -128,10 +148,10 @@ main:focus { outline: none; }
 .feature-card { display: grid; gap: 0; }
 .feature-card > * { grid-area: 1 / 1; }
 .feature-card .card-art { aspect-ratio: 16 / 9; }
-.feature-card .card-text { align-self: end; padding: 2.5rem 1rem 1rem; border-radius: 0 0 0.75rem 0.75rem; background: linear-gradient(to top, var(--scrim) calc(100% - 2.5rem), rgb(14 17 22 / 0)); }
+.feature-card .card-text { align-self: end; color: var(--on-scrim); padding: 2.5rem 1rem 1rem; border-radius: 0 0 0.75rem 0.75rem; background: linear-gradient(to top, var(--scrim) calc(100% - 2.5rem), rgb(14 17 22 / 0)); }
 .feature-card .card-title { font-size: 1.25rem; }
-.feature-card .card-meta { color: var(--text); }
-.feature-card .meta-rating { border-color: var(--line-hover); }
+.feature-card .card-meta { color: var(--on-scrim); }
+.feature-card .meta-rating { border-color: var(--on-scrim-line); }
 .feature-card .bookmark-button { position: static; justify-self: end; align-self: start; margin: 0.5rem; }
 
 .empty-state { max-width: 40rem; padding: 1.5rem; border: 1px solid var(--edge); border-radius: 1rem; background: var(--surface); }
